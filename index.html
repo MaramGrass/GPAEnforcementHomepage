@@ -149,6 +149,11 @@
       margin-bottom: 1.2rem;
     }
 
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
     .card-title {
       font-size: 1.1rem;
       font-weight: 600;
@@ -187,6 +192,16 @@
     .btn:hover {
       transform: translateX(3px);
       filter: brightness(1.08);
+    }
+
+    .btn svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn:hover svg {
+      transform: translateX(3px);
     }
 
     footer {
@@ -231,7 +246,63 @@
   </p>
 </header>
 
-<!-- cards unchanged -->
+<section class="cards">
+
+  <article class="card">
+    <div class="card-accent"></div>
+    <div class="card-body">
+
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M3 12a9 9 0 1 0 18 0A9 9 0 0 0 3 12Z" stroke="#005baa" stroke-width="1.8"/>
+          <path d="M3 12h18M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18" stroke="#005baa" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="card-title">IEWG Case Map</div>
+
+      <p class="card-desc">
+        An interactive global map of enforcement cases brought by data protection authorities. Explore decisions by jurisdiction, legal basis, sector, and outcome.
+      </p>
+
+      <a class="btn" href="https://iewg-case-map.vercel.app/" target="_blank" rel="noopener noreferrer">
+        Open Case Map
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-accent"></div>
+    <div class="card-body">
+
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="3" width="18" height="18" rx="3" stroke="#1a7fc1" stroke-width="1.8"/>
+          <path d="M7 12h2l2-4 2 8 2-4h2" stroke="#1a7fc1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="card-title">AI Enforcement Tracker</div>
+
+      <p class="card-desc">
+        Track regulatory enforcement activity in artificial intelligence and automated decision-making across global privacy authorities.
+      </p>
+
+      <a class="btn" href="https://ai-enforcement-tracker-gpa.vercel.app/" target="_blank" rel="noopener noreferrer">
+        Open AI Tracker
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+    </div>
+  </article>
+
+</section>
 
 <footer>
   <p>&copy; 2025 <a href="https://globalprivacyassembly.org" target="_blank">Global Privacy Assembly</a></p>
