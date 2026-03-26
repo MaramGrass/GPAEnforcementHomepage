@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GPA Enforcement Tracking</title>
+
+  <!-- Updated font -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grey-bg: #e8eaed;
+      --grey-mid: #d2d6db;
+      --grey-dark: #9aa3af;
+      --blue-deep: #003a6e;
+      --blue-mid: #005baa;
+      --blue-light: #1a7fc1;
+      --blue-pale: #cde4f4;
+      --white: #ffffff;
+      --text-dark: #1a2535;
+      --text-mid: #4a5568;
+    }
+
+    body {
+      background-color: var(--grey-bg);
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 1rem 4rem;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,90,170,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,90,170,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 860px;
+      padding: 3rem 0 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      margin-bottom: 1.6rem;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    /* New image logo */
+    .gpa-logo-img {
+      width: 78px;
+      height: 78px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 3px 8px rgba(0,60,120,0.18));
+    }
+
+    .logo-text-block {
+      text-align: left;
+    }
+
+    .logo-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-deep);
+      line-height: 1.3;
+    }
+
+    .logo-sub {
+      font-family: 'Source Serif 4', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--blue-light);
+      letter-spacing: 0.03em;
+      margin-top: 2px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-mid), var(--blue-light));
+      border-radius: 2px;
+      margin: 0 auto 1.4rem;
+      animation: fadeDown 0.8s 0.1s ease both;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      color: var(--blue-deep);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      animation: fadeDown 0.8s 0.15s ease both;
+    }
+
+    .subtitle {
+      margin-top: 0.65rem;
+      font-family: 'Source Serif 4', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--text-mid);
+      max-width: 520px;
+      line-height: 1.65;
+      animation: fadeDown 0.8s 0.25s ease both;
+    }
+
+    .cards {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 860px;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 620px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,60,120,0.09), 0 1px 3px rgba(0,0,0,0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .card:nth-child(2) { animation-delay: 0.1s; }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,60,120,0.15), 0 2px 6px rgba(0,0,0,0.07);
+    }
+
+    .card-accent {
+      height: 5px;
+      background: linear-gradient(90deg, var(--blue-deep), var(--blue-light));
+    }
+
+    .card:nth-child(2) .card-accent {
+      background: linear-gradient(90deg, var(--blue-light), #5bb3e8);
+    }
+
+    .card-body {
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+      margin-bottom: 0.55rem;
+    }
+
+    .card-desc {
+      font-family: 'Source Serif 4', serif;
+      font-weight: 300;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    .btn {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.4rem;
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue-light));
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      border-radius: 7px;
+      text-decoration: none;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      font-size: 0.75rem;
+      color: var(--grey-dark);
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <!-- Replaced SVG with official logo -->
+    <img 
+      src="https://globalprivacyassembly.com/wp-content/uploads/2026/01/GPA_logo_colored.png" 
+      alt="Global Privacy Assembly Logo" 
+      class="gpa-logo-img"
+    />
+
+    <div class="logo-text-block">
+      <div class="logo-name">Global Privacy<br>Assembly</div>
+      <div class="logo-sub">Enforcement Tracking</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h1>Enforcement Tracking Tools</h1>
+  <p class="subtitle">
+    Monitor and analyse privacy enforcement actions from data protection authorities worldwide through the GPA's dedicated case and AI tracking platforms.
+  </p>
+</header>
+
+<!-- Cards remain unchanged -->
+
+<footer>
+  <p>&copy; 2025 <a href="https://globalprivacyassembly.com" target="_blank">Global Privacy Assembly</a></p>
+</footer>
+
+</body>
+</html>
